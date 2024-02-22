@@ -10,21 +10,21 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
-  List todo_list = [
-    ['Task 1', false],
-    ['Task 2', false],
-    ['Task 3', false],
-    ['Task 4', false],
-    ['Task 5', false],
-    ['Task 6', false],
-    ['Task 7', false],
-    ['Task 8', false],
-    ['Task 9', false],
+  List todoList = [
+    ['Task 1', '28 Feb 2024', false],
+    ['Task 2', '2 Mar 2024', false],
+    ['Task 3', '2 Mar 2024', false],
+    ['Task 4', '3 Mar 2024', false],
+    ['Task 5', '7 Mar 2024', false],
+    ['Task 6', '12 Mar 2024', false],
+    ['Task 7', '20 Mar 2024', false],
+    ['Task 8', '1 Apr 2024', false],
+    ['Task 9', '6 Apr 2024', false],
   ];
 
   void onCheckboxChanged(bool? value, int index) {
     setState(() {
-      todo_list[index][1] = !todo_list[index][1];
+      todoList[index][2] = !todoList[index][2];
     });
   }
 
@@ -97,11 +97,12 @@ class _TodoPageState extends State<TodoPage> {
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: todo_list.length,
+                itemCount: todoList.length,
                 itemBuilder: (context, index) {
                   return TodoTile(
-                    taskName: todo_list[index][0],
-                    isTaskCompleted: todo_list[index][1],
+                    taskName: todoList[index][0],
+                    deadline: todoList[index][1],
+                    isTaskCompleted: todoList[index][2],
                     onCheckboxChanged: (value) =>
                         onCheckboxChanged(value, index),
                   );

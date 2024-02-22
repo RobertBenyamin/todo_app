@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class TodoTile extends StatefulWidget {
   final String taskName;
+  final String deadline;
   final bool isTaskCompleted;
   final Function(bool?)? onCheckboxChanged;
 
   const TodoTile(
       {super.key,
       required this.taskName,
+      required this.deadline,
       required this.isTaskCompleted,
       required this.onCheckboxChanged});
 
@@ -21,26 +23,17 @@ class _TodoTileState extends State<TodoTile> {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Container(
-        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.grey), // Add this line
+          border: Border.all(color: Colors.deepPurple),
+          borderRadius: BorderRadius.circular(8),
         ),
-        child: Row(
-          children: [
-            Checkbox(
-                value: widget.isTaskCompleted,
-                onChanged: widget.onCheckboxChanged),
-            const SizedBox(width: 16),
-            Text(
-              widget.taskName,
-              style: TextStyle(
-                  decoration: widget.isTaskCompleted
-                      ? TextDecoration.lineThrough
-                      : TextDecoration.none),
-            ),
-          ],
+        child: CheckboxListTile(
+          title: Text(widget.taskName),
+          subtitle: Text(widget.deadline),
+          value: widget.isTaskCompleted,
+          tileColor: widget.isTaskCompleted ? Colors.grey.shade300 : null,
+          onChanged: widget.onCheckboxChanged,
+          controlAffinity: ListTileControlAffinity.leading,
         ),
       ),
     );
