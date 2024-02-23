@@ -12,6 +12,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   late TextEditingController _nameController;
   late TextEditingController _majorController;
+  late TextEditingController _dateController;
   late TextEditingController _emailController;
 
   @override
@@ -19,6 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     _nameController = TextEditingController();
     _majorController = TextEditingController();
+    _dateController = TextEditingController();
     _emailController = TextEditingController();
   }
 
@@ -88,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               const SizedBox(height: 20),
               CustomDateField(
-                  textController: _nameController,
+                  textController: _dateController,
                   isEnable: false,
                   title: "Date of Birth",
                   content: "13 Jun 2004"),
@@ -109,6 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void dispose() {
     _emailController.dispose();
+    _dateController.dispose();
     _majorController.dispose();
     _nameController.dispose();
     super.dispose();
