@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CustomDateField extends StatefulWidget {
   final TextEditingController textController;
@@ -41,6 +42,7 @@ class _CustomDateFieldState extends State<CustomDateField> {
         TextField(
           controller: widget.textController,
           enabled: widget.isEnable,
+          readOnly: true,
           style: const TextStyle(
             color: Colors.black,
           ),
@@ -53,8 +55,11 @@ class _CustomDateFieldState extends State<CustomDateField> {
                     firstDate: DateTime(2022),
                     lastDate: DateTime(2025),
                   ).then((value) {
-                    widget.textController.text =
-                        value.toString().substring(0, 10);
+                    if (value != null) {
+                      String formattedDate =
+                          DateFormat('dd MMM yyyy').format(value);
+                      widget.textController.text = formattedDate;
+                    }
                   });
                 },
                 child:
