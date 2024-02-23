@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/widgets/custom_date_field.dart';
 import 'package:todo_app/widgets/custom_text_field.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -86,37 +87,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 content: "Ilmu Komputer",
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Date of Birth',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey.shade300),
-                ),
-                child: const Row(
-                  children: [
-                    Icon(
-                      Icons.calendar_today,
-                      color: Colors.deepPurple,
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      'Dec-16-2001',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
+              CustomDateField(
+                  textController: _nameController,
+                  isEnable: false,
+                  title: "Date of Birth",
+                  content: "13 Jun 2004"),
               const SizedBox(height: 20),
               CustomTextField(
                 textController: _emailController,
