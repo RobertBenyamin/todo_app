@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_app/ui/add_todo.dart';
 import 'package:todo_app/widgets/todo_tile.dart';
 
 class TodoPage extends StatefulWidget {
@@ -79,6 +80,12 @@ class _TodoPageState extends State<TodoPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         // Add task logic here
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AddTodoPage(),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepPurple,
