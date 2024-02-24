@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/widgets/custom_date_field.dart';
 import 'package:todo_app/widgets/custom_text_field.dart';
+import 'package:todo_app/widgets/custom_time_field.dart';
 
 class AddTodoPage extends StatefulWidget {
   const AddTodoPage({super.key});
@@ -11,7 +12,9 @@ class AddTodoPage extends StatefulWidget {
 
 class _AddTodoPageState extends State<AddTodoPage> {
   late TextEditingController _startDateController;
+  late TextEditingController _startTimeController;
   late TextEditingController _endDateController;
+  late TextEditingController _endTimeController;
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
   bool _isPriority = true;
@@ -20,7 +23,9 @@ class _AddTodoPageState extends State<AddTodoPage> {
   void initState() {
     super.initState();
     _startDateController = TextEditingController();
+    _startTimeController = TextEditingController();
     _endDateController = TextEditingController();
+    _endTimeController = TextEditingController();
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
   }
@@ -57,19 +62,37 @@ class _AddTodoPageState extends State<AddTodoPage> {
               Row(
                 children: [
                   Expanded(
-                    child: CustomDateField(
-                        textController: _startDateController,
-                        isEnable: true,
-                        title: "Start",
-                        content: ""),
+                    child: Column(
+                      children: [
+                        CustomDateField(
+                            textController: _startDateController,
+                            isEnable: true,
+                            title: "Start",
+                            content: ""),
+                        const SizedBox(height: 10),
+                        CustomTimeField(
+                          timeController: _startTimeController,
+                          isEnable: true,
+                        )
+                      ],
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
-                    child: CustomDateField(
-                        textController: _endDateController,
-                        isEnable: true,
-                        title: "Ends",
-                        content: ""),
+                    child: Column(
+                      children: [
+                        CustomDateField(
+                            textController: _endDateController,
+                            isEnable: true,
+                            title: "Ends",
+                            content: ""),
+                        const SizedBox(height: 10),
+                        CustomTimeField(
+                          timeController: _endTimeController,
+                          isEnable: true,
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -214,6 +237,8 @@ class _AddTodoPageState extends State<AddTodoPage> {
     _descriptionController.dispose();
     _titleController.dispose();
     _endDateController.dispose();
+    _endTimeController.dispose();
+    _startTimeController.dispose();
     _startDateController.dispose();
     super.dispose();
   }
