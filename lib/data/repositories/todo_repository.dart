@@ -51,10 +51,10 @@ class TodoRepository {
 
   Future<List<Todo>> fetchFinishedTodos() async {
     return await isar.todos
-        .where(sort: Sort.desc)
+        .where()
         .filter()
         .isFinishedEqualTo(true)
-        .sortByEndDate()
+        .sortByEndDateDesc()
         .findAll();
   }
 
