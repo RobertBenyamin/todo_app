@@ -32,6 +32,11 @@ class TodoProvider extends ChangeNotifier {
     fetchTodos();
   }
 
+  Future<void> updateTodo(Todo todo) async {
+    await repository.updateTodo(todo);
+    fetchTodos();
+  }
+
   Future<void> deleteTodo(Todo todo) async {
     await repository.deleteTodo(todo.id);
     fetchTodos();

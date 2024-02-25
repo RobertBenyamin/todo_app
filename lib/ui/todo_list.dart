@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/ui/add_todo.dart';
 import 'package:todo_app/data/model/todo.dart';
+import 'package:todo_app/ui/edit_todo.dart';
 import 'package:todo_app/widgets/todo_tile.dart';
 import 'package:todo_app/provider/todo_provider.dart';
 import 'package:todo_app/utils/date_time_helper.dart';
@@ -106,6 +107,17 @@ class _TodoPageState extends State<TodoPage> {
                           context
                               .read<TodoProvider>()
                               .updateTodoStatus(todo.id, value!),
+                        },
+                        editFunction: (context) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChangeNotifierProvider.value(
+                                value: context.read<TodoProvider>(),
+                                child: EditTodoPage(todo: todo),
+                              ),
+                            ),
+                          );
                         },
                         deleteFunction: (context) {
                           context.read<TodoProvider>().deleteTodo(todo);

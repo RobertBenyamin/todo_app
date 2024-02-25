@@ -6,6 +6,7 @@ class TodoTile extends StatefulWidget {
   final String deadline;
   final bool isTaskCompleted;
   final Function(bool?)? onCheckboxChanged;
+  final Function(BuildContext)? editFunction;
   final Function(BuildContext)? deleteFunction;
 
   const TodoTile(
@@ -14,6 +15,7 @@ class TodoTile extends StatefulWidget {
       required this.deadline,
       required this.isTaskCompleted,
       required this.onCheckboxChanged,
+      required this.editFunction,
       required this.deleteFunction});
 
   @override
@@ -26,6 +28,17 @@ class _TodoTileState extends State<TodoTile> {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Slidable(
+        startActionPane: ActionPane(
+          motion: const ScrollMotion(),
+          children: [
+            SlidableAction(
+              onPressed: widget.editFunction,
+              borderRadius: BorderRadius.circular(8),
+              backgroundColor: Colors.blue,
+              icon: Icons.edit,
+            ),
+          ],
+        ),
         endActionPane: ActionPane(
           motion: const ScrollMotion(),
           children: [
