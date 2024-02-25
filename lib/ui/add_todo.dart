@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/data/model/todo.dart';
 import 'package:todo_app/provider/todo_provider.dart';
+import 'package:todo_app/utils/date_time_helper.dart';
 import 'package:todo_app/widgets/custom_date_field.dart';
 import 'package:todo_app/widgets/custom_text_field.dart';
 import 'package:todo_app/widgets/custom_time_field.dart';
@@ -33,17 +33,6 @@ class _AddTodoPageState extends State<AddTodoPage> {
     _endTimeController = TextEditingController();
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
-  }
-
-  DateTime convertToDateTime(String formattedDate, String formattedTime) {
-    DateFormat dateFormatter = DateFormat('dd MMM yyyy');
-    DateFormat timeFormatter = DateFormat('hh:mm a');
-
-    DateTime date = dateFormatter.parse(formattedDate);
-    DateTime time = timeFormatter.parse(formattedTime);
-
-    // Combine date and time
-    return DateTime(date.year, date.month, date.day, time.hour, time.minute);
   }
 
   @override
@@ -185,9 +174,8 @@ class _AddTodoPageState extends State<AddTodoPage> {
                           child: Text(
                             'Daily Task',
                             style: TextStyle(
-                              color: _isDaily
-                                  ? Colors.white
-                                  : Colors.deepPurple,
+                              color:
+                                  _isDaily ? Colors.white : Colors.deepPurple,
                               fontSize: 16,
                             ),
                           ),
@@ -222,10 +210,10 @@ class _AddTodoPageState extends State<AddTodoPage> {
               const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
-                  DateTime startDate = convertToDateTime(
+                  DateTime startDate = DateTimeHelper.convertToDateTime(
                       _startDateController.text, _startTimeController.text);
-                  DateTime endDate = convertToDateTime(_endDateController.text,
-                      _endTimeController.text);
+                  DateTime endDate = DateTimeHelper.convertToDateTime(
+                      _endDateController.text, _endTimeController.text);
                   String title = _titleController.text;
                   bool isPriority = _isPriority;
                   bool isDaily = _isDaily;
@@ -241,9 +229,8 @@ class _AddTodoPageState extends State<AddTodoPage> {
                     ..isDaily = isDaily
                     ..description = description
                     ..isFinished = isFinished;
-                  
+
                   context.read<TodoProvider>().addTodo(todo);
-                  // Provider.of<TodoProvider>(context, listen: false).addTodo(todo);
 
                   Navigator.pop(context);
                 },

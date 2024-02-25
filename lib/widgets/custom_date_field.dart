@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:todo_app/utils/date_time_helper.dart';
 
 class CustomDateField extends StatefulWidget {
   final TextEditingController textController;
@@ -51,14 +51,13 @@ class _CustomDateFieldState extends State<CustomDateField> {
                 onTap: () {
                   showDatePicker(
                     context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2022),
-                    lastDate: DateTime(2025),
+                    initialDate: DateTimeHelper.dateNow,
+                    firstDate: DateTimeHelper.dateNow,
+                    lastDate: DateTime(2101),
                   ).then((value) {
                     if (value != null) {
-                      String formattedDate =
-                          DateFormat('dd MMM yyyy').format(value);
-                      widget.textController.text = formattedDate;
+                      widget.textController.text =
+                          DateTimeHelper.formatDate(value);
                     }
                   });
                 },

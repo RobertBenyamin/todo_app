@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:todo_app/utils/date_time_helper.dart';
 
 class CustomTimeField extends StatefulWidget {
   final TextEditingController timeController;
   final bool isEnable;
 
-  const CustomTimeField(
-      {super.key,
-      required this.timeController,
-      required this.isEnable,});
+  const CustomTimeField({
+    super.key,
+    required this.timeController,
+    required this.isEnable,
+  });
 
   @override
   State<CustomTimeField> createState() => _CustomTimeFieldState();
@@ -34,19 +35,18 @@ class _CustomTimeFieldState extends State<CustomTimeField> {
             onTap: () {
               showTimePicker(
                 context: context,
-                initialTime: TimeOfDay.now(),
+                initialTime: DateTimeHelper.timeNow,
               ).then((selectedTime) {
                 if (selectedTime != null) {
                   DateTime selectedDateTime = DateTime(
-                    DateTime.now().year,
-                    DateTime.now().month,
-                    DateTime.now().day,
+                    DateTimeHelper.dateNow.year,
+                    DateTimeHelper.dateNow.month,
+                    DateTimeHelper.dateNow.day,
                     selectedTime.hour,
                     selectedTime.minute,
                   );
-                  String formattedDateTime =
-                      DateFormat('hh:mm a').format(selectedDateTime);
-                  widget.timeController.text = formattedDateTime;
+                  widget.timeController.text =
+                      DateTimeHelper.formatTime(selectedDateTime);
                 }
               });
             },

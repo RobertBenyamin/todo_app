@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/ui/add_todo.dart';
 import 'package:todo_app/data/model/todo.dart';
 import 'package:todo_app/widgets/todo_tile.dart';
 import 'package:todo_app/provider/todo_provider.dart';
+import 'package:todo_app/utils/date_time_helper.dart';
 
 class TodoPage extends StatefulWidget {
   const TodoPage({Key? key}) : super(key: key);
@@ -16,13 +16,10 @@ class TodoPage extends StatefulWidget {
 class _TodoPageState extends State<TodoPage> {
   @override
   Widget build(BuildContext context) {
-    final currentDate = DateTime.now();
-    final formattedDate = DateFormat('EEEE, dd MMMM yyyy').format(currentDate);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          formattedDate,
+          DateTimeHelper.formatCurrentDate(),
           style: const TextStyle(
             fontSize: 16,
             color: Colors.grey,
@@ -98,8 +95,7 @@ class _TodoPageState extends State<TodoPage> {
                       Todo todo = state.todos[index];
                       return TodoTile(
                         taskName: todo.title,
-                        deadline:
-                            DateFormat('dd MMM yyyy').format(todo.endDate),
+                        deadline: DateTimeHelper.formatDateTime(todo.endDate),
                         isTaskCompleted: todo.isFinished,
                         onCheckboxChanged: (value) => {
                           context
