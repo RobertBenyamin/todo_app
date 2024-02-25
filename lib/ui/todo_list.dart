@@ -107,6 +107,14 @@ class _TodoPageState extends State<TodoPage> {
                               .read<TodoProvider>()
                               .updateTodoStatus(todo.id, value!),
                         },
+                        deleteFunction: (context) {
+                          context.read<TodoProvider>().deleteTodo(todo);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Task deleted'),
+                            ),
+                          );
+                        },
                       );
                     },
                   );
