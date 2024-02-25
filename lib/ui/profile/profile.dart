@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/ui/edit_profile.dart';
+import 'package:todo_app/ui/profile/edit_profile.dart';
 import 'package:todo_app/provider/profile_provider.dart';
 import 'package:todo_app/widgets/custom_date_field.dart';
 import 'package:todo_app/widgets/custom_text_field.dart';

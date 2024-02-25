@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/ui/profile.dart';
-import 'package:todo_app/ui/todo_list.dart';
-import 'package:todo_app/ui/finished_todo.dart';
+import 'package:todo_app/ui/todo/todo_list.dart';
+import 'package:todo_app/ui/profile/profile.dart';
+import 'package:todo_app/ui/todo/finished_todo.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -35,15 +35,15 @@ class _HomePageState extends State<HomePage> {
           },
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home, size: 32), // Change the size here
+              icon: Icon(Icons.home, size: 32),
               label: 'Todo',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.check_circle, size: 32), // Change the size here
+              icon: Icon(Icons.check_circle, size: 32),
               label: 'Finished',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person, size: 32), // Change the size here
+              icon: Icon(Icons.person, size: 32),
               label: 'Profile',
             ),
           ],
