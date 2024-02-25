@@ -52,7 +52,7 @@ class _CustomDateFieldState extends State<CustomDateField> {
                   showDatePicker(
                     context: context,
                     initialDate: DateTimeHelper.dateNow,
-                    firstDate: DateTimeHelper.dateNow,
+                    firstDate: DateTime(1901),
                     lastDate: DateTime(2101),
                   ).then((value) {
                     if (value != null) {
