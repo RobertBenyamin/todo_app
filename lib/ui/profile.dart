@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/ui/edit_profile.dart';
+import 'package:todo_app/provider/profile_provider.dart';
 import 'package:todo_app/widgets/custom_date_field.dart';
 import 'package:todo_app/widgets/custom_text_field.dart';
 
@@ -27,84 +30,104 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple,
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
-        title: const Center(child: Text('My Profile')),
+        title: const Text('My Profile'),
+        centerTitle: true,
       ),
-      body: Container(
-        margin: const EdgeInsets.only(top: 24),
-        decoration: const BoxDecoration(
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(64),
-            topRight: Radius.circular(64),
-          ),
-          color: Colors.white,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 8),
-              Center(
-                child: CircleAvatar(
-                  radius: 50,
-                  backgroundImage:
-                      const AssetImage('assets/images/profile_picture.png'),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(10),
-                          border:
-                              Border.all(color: Colors.deepPurple, width: 2),
-                          color: Colors.white,
-                        ),
-                        child: const Icon(Icons.edit, color: Colors.deepPurple),
-                      ),
-                    ),
+      body: Consumer<ProfileProvider>(builder: (context, provider, _) {
+        _nameController.text = provider.name;
+        _majorController.text = provider.major;
+        _dateController.text = provider.dateOfBirth;
+        _emailController.text = provider.email;
+
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 8),
+                const Center(
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage:
+                        AssetImage('assets/images/profile_picture.png'),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              CustomTextField(
-                textController: _nameController,
-                isEnable: false,
-                title: "Name",
-                content: "Ristek",
-              ),
-              const SizedBox(height: 20),
-              CustomTextField(
-                textController: _majorController,
-                isEnable: false,
-                title: "Major",
-                content: "Ilmu Komputer",
-              ),
-              const SizedBox(height: 20),
-              CustomDateField(
-                  textController: _dateController,
+                const SizedBox(height: 20),
+                CustomTextField(
+                  textController: _nameController,
                   isEnable: false,
-                  title: "Date of Birth",
-                  content: "13 Jun 2004"),
-              const SizedBox(height: 20),
-              CustomTextField(
-                textController: _emailController,
-                isEnable: false,
-                title: "Email",
-                content: "carlenee@ristek.ui.ac.id",
-              ),
-            ],
+                  title: "Name",
+                  content: provider.name,
+                ),
+                const SizedBox(height: 20),
+                CustomTextField(
+                  textController: _majorController,
+                  isEnable: false,
+                  title: "Major",
+                  content: provider.major,
+                ),
+                const SizedBox(height: 20),
+                CustomDateField(
+                    textController: _dateController,
+                    isEnable: false,
+                    title: "Date of Birth",
+                    content: provider.dateOfBirth),
+                const SizedBox(height: 20),
+                CustomTextField(
+                  textController: _emailController,
+                  isEnable: false,
+                  title: "Email",
+                  content: provider.email,
+                ),
+              ],
+            ),
           ),
-        ),
+        );
+      }),
+      // Dummy Navigation Bar
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
       ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: "Edit Profile",
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+        onPressed: () {
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              transitionDuration: const Duration(milliseconds: 400),
+              pageBuilder: (context, animation, secondaryAnimation) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(0, 1),
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: ChangeNotifierProvider.value(
+                    value: context.read<ProfileProvider>(),
+                    child: const EditProfilePage(),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+        child: const Icon(Icons.edit),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
