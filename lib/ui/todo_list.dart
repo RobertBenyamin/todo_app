@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/ui/add_todo.dart';
-import 'package:todo_app/data/model/todo.dart';
 import 'package:todo_app/ui/edit_todo.dart';
+import 'package:todo_app/ui/detail_todo.dart';
+import 'package:todo_app/data/model/todo.dart';
 import 'package:todo_app/widgets/todo_tile.dart';
 import 'package:todo_app/provider/todo_provider.dart';
 import 'package:todo_app/utils/date_time_helper.dart';
@@ -15,14 +16,44 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
+  void onLongPress(BuildContext context, Todo todo) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 400),
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(1.0, 0.0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: ChangeNotifierProvider.value(
+              value: context.read<TodoProvider>(),
+              child: DetailTodoPage(todo: todo),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   void editFunction(BuildContext context, Todo todo) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider.value(
-          value: context.read<TodoProvider>(),
-          child: EditTodoPage(todo: todo),
-        ),
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 400),
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(-1.0, 0.0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: ChangeNotifierProvider.value(
+              value: context.read<TodoProvider>(),
+              child: EditTodoPage(todo: todo),
+            ),
+          );
+        },
       ),
     );
   }
@@ -94,6 +125,7 @@ class _TodoPageState extends State<TodoPage> {
                             deadline:
                                 DateTimeHelper.formatDateTime(todo.endDate),
                             isTaskCompleted: todo.isFinished,
+                            onLongPress: () => onLongPress(context, todo),
                             onCheckboxChanged: (value) => {
                               context
                                   .read<TodoProvider>()
@@ -133,6 +165,7 @@ class _TodoPageState extends State<TodoPage> {
                             deadline:
                                 DateTimeHelper.formatDateTime(todo.endDate),
                             isTaskCompleted: todo.isFinished,
+                            onLongPress: () => onLongPress(context, todo),
                             onCheckboxChanged: (value) => {
                               context
                                   .read<TodoProvider>()
@@ -172,11 +205,20 @@ class _TodoPageState extends State<TodoPage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => ChangeNotifierProvider.value(
-                value: context.read<TodoProvider>(),
-                child: const AddTodoPage(),
-              ),
+            PageRouteBuilder(
+              transitionDuration: const Duration(milliseconds: 400),
+              pageBuilder: (context, animation, secondaryAnimation) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(0, 1),
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: ChangeNotifierProvider.value(
+                    value: context.read<TodoProvider>(),
+                    child: const AddTodoPage(),
+                  ),
+                );
+              },
             ),
           );
         },

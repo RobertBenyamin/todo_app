@@ -6,6 +6,7 @@ class TodoTile extends StatefulWidget {
   final String deadline;
   final bool isTaskCompleted;
   final Function(bool?)? onCheckboxChanged;
+  final Function()? onLongPress;
   final Function(BuildContext)? editFunction;
   final Function(BuildContext)? deleteFunction;
 
@@ -15,6 +16,7 @@ class TodoTile extends StatefulWidget {
       required this.deadline,
       required this.isTaskCompleted,
       required this.onCheckboxChanged,
+      required this.onLongPress,
       required this.editFunction,
       required this.deleteFunction});
 
@@ -50,18 +52,21 @@ class _TodoTileState extends State<TodoTile> {
             ),
           ],
         ),
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.deepPurple),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: CheckboxListTile(
-            title: Text(widget.taskName),
-            subtitle: Text(widget.deadline),
-            value: widget.isTaskCompleted,
-            tileColor: widget.isTaskCompleted ? Colors.grey.shade300 : null,
-            onChanged: widget.onCheckboxChanged,
-            controlAffinity: ListTileControlAffinity.leading,
+        child: GestureDetector(
+          onLongPress: widget.onLongPress,
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.deepPurple),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: CheckboxListTile(
+              title: Text(widget.taskName),
+              subtitle: Text(widget.deadline),
+              value: widget.isTaskCompleted,
+              tileColor: widget.isTaskCompleted ? Colors.grey.shade300 : null,
+              onChanged: widget.onCheckboxChanged,
+              controlAffinity: ListTileControlAffinity.leading,
+            ),
           ),
         ),
       ),
