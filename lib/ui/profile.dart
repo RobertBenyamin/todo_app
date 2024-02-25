@@ -61,14 +61,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   textController: _nameController,
                   isEnable: false,
                   title: "Name",
-                  content: provider.name,
                 ),
                 const SizedBox(height: 20),
                 CustomTextField(
                   textController: _majorController,
                   isEnable: false,
                   title: "Major",
-                  content: provider.major,
                 ),
                 const SizedBox(height: 20),
                 CustomDateField(
@@ -81,7 +79,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   textController: _emailController,
                   isEnable: false,
                   title: "Email",
-                  content: provider.email,
                 ),
               ],
             ),

@@ -49,6 +49,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
       ),
       body: Consumer<ProfileProvider>(builder: (context, provider, _) {
+        _nameController.text = provider.name;
+        _majorController.text = provider.major;
+        _dateController.text = provider.dateOfBirth;
+        _emailController.text = provider.email;
+
         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -87,14 +92,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   textController: _nameController,
                   isEnable: true,
                   title: "Name",
-                  content: provider.name,
                 ),
                 const SizedBox(height: 20),
                 CustomTextField(
                   textController: _majorController,
                   isEnable: true,
                   title: "Major",
-                  content: provider.major,
                 ),
                 const SizedBox(height: 20),
                 CustomDateField(
@@ -107,7 +110,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   textController: _emailController,
                   isEnable: true,
                   title: "Email",
-                  content: provider.email,
                 ),
                 const SizedBox(height: 20),
                 GestureDetector(

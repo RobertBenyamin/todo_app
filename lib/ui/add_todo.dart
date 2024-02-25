@@ -103,10 +103,10 @@ class _AddTodoPageState extends State<AddTodoPage> {
               ),
               const SizedBox(height: 20),
               CustomTextField(
-                  textController: _titleController,
-                  isEnable: true,
-                  title: "Title",
-                  content: ""),
+                textController: _titleController,
+                isEnable: true,
+                title: "Title",
+              ),
               const SizedBox(height: 20),
               const Text(
                 "Category",

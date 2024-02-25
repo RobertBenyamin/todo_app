@@ -36,8 +36,10 @@ class _EditTodoPageState extends State<EditTodoPage> {
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
 
-    _startDateController.text = DateTimeHelper.formatDate(widget.todo.startDate);
-    _startTimeController.text = DateTimeHelper.formatTime(widget.todo.startDate);
+    _startDateController.text =
+        DateTimeHelper.formatDate(widget.todo.startDate);
+    _startTimeController.text =
+        DateTimeHelper.formatTime(widget.todo.startDate);
     _endDateController.text = DateTimeHelper.formatDate(widget.todo.endDate);
     _endTimeController.text = DateTimeHelper.formatTime(widget.todo.endDate);
     _titleController.text = widget.todo.title;
@@ -84,7 +86,8 @@ class _EditTodoPageState extends State<EditTodoPage> {
                             textController: _startDateController,
                             isEnable: true,
                             title: "Start",
-                            content: DateTimeHelper.formatDate(widget.todo.startDate)),
+                            content: DateTimeHelper.formatDate(
+                                widget.todo.startDate)),
                         const SizedBox(height: 10),
                         CustomTimeField(
                           timeController: _startTimeController,
@@ -101,7 +104,8 @@ class _EditTodoPageState extends State<EditTodoPage> {
                             textController: _endDateController,
                             isEnable: true,
                             title: "Ends",
-                            content: DateTimeHelper.formatDate(widget.todo.endDate)),
+                            content:
+                                DateTimeHelper.formatDate(widget.todo.endDate)),
                         const SizedBox(height: 10),
                         CustomTimeField(
                           timeController: _endTimeController,
@@ -114,10 +118,10 @@ class _EditTodoPageState extends State<EditTodoPage> {
               ),
               const SizedBox(height: 20),
               CustomTextField(
-                  textController: _titleController,
-                  isEnable: true,
-                  title: "Title",
-                  content: widget.todo.title),
+                textController: _titleController,
+                isEnable: true,
+                title: "Title",
+              ),
               const SizedBox(height: 20),
               const Text(
                 "Category",

@@ -4,26 +4,19 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController textController;
   final bool isEnable;
   final String title;
-  final String content;
 
-  const CustomTextField(
-      {super.key,
-      required this.textController,
-      required this.isEnable,
-      required this.title,
-      required this.content});
+  const CustomTextField({
+    super.key,
+    required this.textController,
+    required this.isEnable,
+    required this.title,
+  });
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  @override
-  void initState() {
-    super.initState();
-    widget.textController.text = widget.content;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
