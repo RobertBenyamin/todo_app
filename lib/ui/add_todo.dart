@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/data/model/todo.dart';
+import 'package:todo_app/provider/todo_provider.dart';
 import 'package:todo_app/widgets/custom_date_field.dart';
 import 'package:todo_app/widgets/custom_text_field.dart';
 import 'package:todo_app/widgets/custom_time_field.dart';
@@ -17,7 +21,8 @@ class _AddTodoPageState extends State<AddTodoPage> {
   late TextEditingController _endTimeController;
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
-  bool _isPriority = true;
+  bool _isPriority = false;
+  bool _isDaily = false;
 
   @override
   void initState() {
@@ -28,6 +33,17 @@ class _AddTodoPageState extends State<AddTodoPage> {
     _endTimeController = TextEditingController();
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
+  }
+
+  DateTime convertToDateTime(String formattedDate, String formattedTime) {
+    DateFormat dateFormatter = DateFormat('dd MMM yyyy');
+    DateFormat timeFormatter = DateFormat('hh:mm a');
+
+    DateTime date = dateFormatter.parse(formattedDate);
+    DateTime time = timeFormatter.parse(formattedTime);
+
+    // Combine date and time
+    return DateTime(date.year, date.month, date.day, time.hour, time.minute);
   }
 
   @override
@@ -101,7 +117,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                   textController: _titleController,
                   isEnable: true,
                   title: "Title",
-                  content: "Mobile Development"),
+                  content: ""),
               const SizedBox(height: 20),
               const Text(
                 "Category",
@@ -118,7 +134,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          _isPriority = true;
+                          _isPriority = !_isPriority;
                         });
                       },
                       child: Container(
@@ -151,27 +167,27 @@ class _AddTodoPageState extends State<AddTodoPage> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          _isPriority = false;
+                          _isDaily = !_isDaily;
                         });
                       },
                       child: Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: _isPriority ? Colors.white : Colors.deepPurple,
+                          color: _isDaily ? Colors.deepPurple : Colors.white,
                           border: Border.all(
-                            color: _isPriority
-                                ? Colors.grey.shade300
-                                : Colors.deepPurple,
+                            color: _isDaily
+                                ? Colors.deepPurple
+                                : Colors.grey.shade300,
                           ),
                         ),
                         child: Center(
                           child: Text(
                             'Daily Task',
                             style: TextStyle(
-                              color: _isPriority
-                                  ? Colors.deepPurple
-                                  : Colors.white,
+                              color: _isDaily
+                                  ? Colors.white
+                                  : Colors.deepPurple,
                               fontSize: 16,
                             ),
                           ),
@@ -205,7 +221,32 @@ class _AddTodoPageState extends State<AddTodoPage> {
               ),
               const SizedBox(height: 20),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  DateTime startDate = convertToDateTime(
+                      _startDateController.text, _startTimeController.text);
+                  DateTime endDate = convertToDateTime(_endDateController.text,
+                      _endTimeController.text);
+                  String title = _titleController.text;
+                  bool isPriority = _isPriority;
+                  bool isDaily = _isDaily;
+                  String description = _descriptionController.text;
+                  bool isFinished = false;
+
+                  Todo todo = Todo();
+                  todo
+                    ..startDate = startDate
+                    ..endDate = endDate
+                    ..title = title
+                    ..isPriority = isPriority
+                    ..isDaily = isDaily
+                    ..description = description
+                    ..isFinished = isFinished;
+                  
+                  context.read<TodoProvider>().addTodo(todo);
+                  // Provider.of<TodoProvider>(context, listen: false).addTodo(todo);
+
+                  Navigator.pop(context);
+                },
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(

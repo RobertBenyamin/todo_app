@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/ui/add_todo.dart';
+import 'package:todo_app/data/model/todo.dart';
 import 'package:todo_app/widgets/todo_tile.dart';
+import 'package:todo_app/provider/todo_provider.dart';
 
 class TodoPage extends StatefulWidget {
   const TodoPage({Key? key}) : super(key: key);
@@ -11,24 +14,6 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
-  List todoList = [
-    ['Task 1', '28 Feb 2024', false],
-    ['Task 2', '2 Mar 2024', false],
-    ['Task 3', '2 Mar 2024', false],
-    ['Task 4', '3 Mar 2024', false],
-    ['Task 5', '7 Mar 2024', false],
-    ['Task 6', '12 Mar 2024', false],
-    ['Task 7', '20 Mar 2024', false],
-    ['Task 8', '1 Apr 2024', false],
-    ['Task 9', '6 Apr 2024', false],
-  ];
-
-  void onCheckboxChanged(bool? value, int index) {
-    setState(() {
-      todoList[index][2] = !todoList[index][2];
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final currentDate = DateTime.now();
@@ -79,11 +64,13 @@ class _TodoPageState extends State<TodoPage> {
                     height: 35,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Add task logic here
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const AddTodoPage(),
+                            builder: (context) => ChangeNotifierProvider.value(
+                              value: context.read<TodoProvider>(),
+                              child: const AddTodoPage(),
+                            ),
                           ),
                         );
                       },
@@ -101,17 +88,26 @@ class _TodoPageState extends State<TodoPage> {
                 ],
               ),
               const SizedBox(height: 16),
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: todoList.length,
-                itemBuilder: (context, index) {
-                  return TodoTile(
-                    taskName: todoList[index][0],
-                    deadline: todoList[index][1],
-                    isTaskCompleted: todoList[index][2],
-                    onCheckboxChanged: (value) =>
-                        onCheckboxChanged(value, index),
+              Consumer<TodoProvider>(
+                builder: (context, state, _) {
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: state.todos.length,
+                    itemBuilder: (context, index) {
+                      Todo todo = state.todos[index];
+                      return TodoTile(
+                        taskName: todo.title,
+                        deadline:
+                            DateFormat('dd MMM yyyy').format(todo.endDate),
+                        isTaskCompleted: todo.isFinished,
+                        onCheckboxChanged: (value) => {
+                          context
+                              .read<TodoProvider>()
+                              .updateTodoStatus(todo.id, value!),
+                        },
+                      );
+                    },
                   );
                 },
               )
