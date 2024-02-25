@@ -8,25 +8,29 @@ class TodoProvider extends ChangeNotifier {
   TodoProvider({required this.repository}) {
     fetchTodos();
   }
-  
+
   List<Todo> _todos = [];
   List<Todo> get todos => _todos;
+
+  List<Todo> _finishedTodos = [];
+  List<Todo> get finishedTodos => _finishedTodos;
 
   List<Todo> _unfinishedTodos = [];
   List<Todo> get unfinishedTodos => _unfinishedTodos;
 
   List<Todo> _unfinishedPriorityTodos = [];
   List<Todo> get unfinishedPriorityTodos => _unfinishedPriorityTodos;
-  
+
   List<Todo> _unfinishedNonPriorityTodos = [];
   List<Todo> get unfinishedNonPriorityTodos => _unfinishedNonPriorityTodos;
 
-
   Future<void> fetchTodos() async {
     _todos = await repository.fetchTodos();
+    _finishedTodos = await repository.fetchFinishedTodos();
     _unfinishedTodos = await repository.fetchUnfinishedTodos();
     _unfinishedPriorityTodos = await repository.fetchUnfinishedPriorityTodos();
-    _unfinishedNonPriorityTodos = await repository.fetchUnfinishedNonPriorityTodos();
+    _unfinishedNonPriorityTodos =
+        await repository.fetchUnfinishedNonPriorityTodos();
     notifyListeners();
   }
 
