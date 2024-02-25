@@ -20,7 +20,33 @@ class TodoRepository {
   }
 
   Future<List<Todo>> fetchTodos() async {
-    return await isar.todos.where().findAll();
+    return await isar.todos.where().sortByEndDate().findAll();
+  }
+
+  Future<List<Todo>> fetchUnfinishedTodos() async {
+    var priorityTodos = await fetchUnfinishedPriorityTodos();
+    var otherTodos = await fetchUnfinishedNonPriorityTodos();
+    return [...priorityTodos, ...otherTodos];
+  }
+
+  Future<List<Todo>> fetchUnfinishedPriorityTodos() async {
+    return await isar.todos
+        .where()
+        .filter()
+        .isFinishedEqualTo(false)
+        .isPriorityEqualTo(true)
+        .sortByEndDate()
+        .findAll();
+  }
+
+  Future<List<Todo>> fetchUnfinishedNonPriorityTodos() async {
+    return await isar.todos
+        .where()
+        .filter()
+        .isFinishedEqualTo(false)
+        .isPriorityEqualTo(false)
+        .sortByEndDate()
+        .findAll();
   }
 
   Future<void> updateTodo(Todo newTodo) async {
@@ -56,8 +82,4 @@ class TodoRepository {
     }
   }
 
-  Future<List<Todo>> fetchUnfinishedTodos() async {
-    return await isar.todos.where().filter().isFinishedEqualTo(false).findAll();
-  }
-  
 }

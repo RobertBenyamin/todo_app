@@ -15,10 +15,18 @@ class TodoProvider extends ChangeNotifier {
   List<Todo> _unfinishedTodos = [];
   List<Todo> get unfinishedTodos => _unfinishedTodos;
 
+  List<Todo> _unfinishedPriorityTodos = [];
+  List<Todo> get unfinishedPriorityTodos => _unfinishedPriorityTodos;
+  
+  List<Todo> _unfinishedNonPriorityTodos = [];
+  List<Todo> get unfinishedNonPriorityTodos => _unfinishedNonPriorityTodos;
+
 
   Future<void> fetchTodos() async {
     _todos = await repository.fetchTodos();
     _unfinishedTodos = await repository.fetchUnfinishedTodos();
+    _unfinishedPriorityTodos = await repository.fetchUnfinishedPriorityTodos();
+    _unfinishedNonPriorityTodos = await repository.fetchUnfinishedNonPriorityTodos();
     notifyListeners();
   }
 

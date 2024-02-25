@@ -15,6 +15,27 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
+  void editFunction(BuildContext context, Todo todo) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider.value(
+          value: context.read<TodoProvider>(),
+          child: EditTodoPage(todo: todo),
+        ),
+      ),
+    );
+  }
+
+  void deleteFunction(BuildContext context, Todo todo) {
+    context.read<TodoProvider>().deleteTodo(todo);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Task deleted'),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,115 +48,141 @@ class _TodoPageState extends State<TodoPage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Welcome RISTEK',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Consumer<TodoProvider>(
-                builder: (context, provider, _) {
-                  return Text(
-                    'You have ${provider.unfinishedTodos.isEmpty ? 'no' : '${provider.unfinishedTodos.length}'} '
-                    '${provider.unfinishedTodos.length <= 1 ? 'task' : 'tasks'}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Daily Task',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+      body: Consumer<TodoProvider>(builder: (context, provider, _) {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Welcome RISTEK',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
-                  SizedBox(
-                    height: 35,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChangeNotifierProvider.value(
-                              value: context.read<TodoProvider>(),
-                              child: const AddTodoPage(),
-                            ),
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurple,
-                      ),
-                      child: const Text(
-                        'Add Task',
+                ),
+                Text(
+                  'You have ${provider.unfinishedTodos.isEmpty ? 'no' : '${provider.unfinishedTodos.length}'} '
+                  '${provider.unfinishedTodos.length <= 1 ? 'task' : 'tasks'}',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                if (provider.unfinishedPriorityTodos.isNotEmpty)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Priority Task',
                         style: TextStyle(
-                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
+                      const SizedBox(height: 16),
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: provider.unfinishedPriorityTodos.length,
+                        itemBuilder: (context, index) {
+                          Todo todo = provider.unfinishedPriorityTodos[index];
+                          return TodoTile(
+                            taskName: todo.title,
+                            deadline:
+                                DateTimeHelper.formatDateTime(todo.endDate),
+                            isTaskCompleted: todo.isFinished,
+                            onCheckboxChanged: (value) => {
+                              context
+                                  .read<TodoProvider>()
+                                  .updateTodoStatus(todo.id, value!),
+                            },
+                            editFunction: (context) =>
+                                editFunction(context, todo),
+                            deleteFunction: (context) =>
+                                deleteFunction(context, todo),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Consumer<TodoProvider>(
-                builder: (context, state, _) {
-                  return ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: state.todos.length,
-                    itemBuilder: (context, index) {
-                      Todo todo = state.todos[index];
-                      return TodoTile(
-                        taskName: todo.title,
-                        deadline: DateTimeHelper.formatDateTime(todo.endDate),
-                        isTaskCompleted: todo.isFinished,
-                        onCheckboxChanged: (value) => {
-                          context
-                              .read<TodoProvider>()
-                              .updateTodoStatus(todo.id, value!),
-                        },
-                        editFunction: (context) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChangeNotifierProvider.value(
-                                value: context.read<TodoProvider>(),
-                                child: EditTodoPage(todo: todo),
-                              ),
-                            ),
+                const SizedBox(height: 16),
+                if (provider.unfinishedNonPriorityTodos.isNotEmpty)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Non Priority Task',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: provider.unfinishedNonPriorityTodos.length,
+                        itemBuilder: (context, index) {
+                          Todo todo =
+                              provider.unfinishedNonPriorityTodos[index];
+                          return TodoTile(
+                            taskName: todo.title,
+                            deadline:
+                                DateTimeHelper.formatDateTime(todo.endDate),
+                            isTaskCompleted: todo.isFinished,
+                            onCheckboxChanged: (value) => {
+                              context
+                                  .read<TodoProvider>()
+                                  .updateTodoStatus(todo.id, value!),
+                            },
+                            editFunction: (context) =>
+                                editFunction(context, todo),
+                            deleteFunction: (context) =>
+                                deleteFunction(context, todo),
                           );
                         },
-                        deleteFunction: (context) {
-                          context.read<TodoProvider>().deleteTodo(todo);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Task deleted'),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  );
-                },
-              )
-            ],
+                      ),
+                    ],
+                  ),
+              ],
+            ),
           ),
-        ),
+        );
+      }),
+      // Dummy Navigation Bar
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
       ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: "Add Task",
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider.value(
+                value: context.read<TodoProvider>(),
+                child: const AddTodoPage(),
+              ),
+            ),
+          );
+        },
+        child: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
