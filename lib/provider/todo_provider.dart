@@ -12,9 +12,13 @@ class TodoProvider extends ChangeNotifier {
   List<Todo> _todos = [];
   List<Todo> get todos => _todos;
 
+  List<Todo> _unfinishedTodos = [];
+  List<Todo> get unfinishedTodos => _unfinishedTodos;
+
 
   Future<void> fetchTodos() async {
     _todos = await repository.fetchTodos();
+    _unfinishedTodos = await repository.fetchUnfinishedTodos();
     notifyListeners();
   }
 

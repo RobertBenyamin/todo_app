@@ -55,4 +55,9 @@ class TodoRepository {
       });
     }
   }
+
+  Future<List<Todo>> fetchUnfinishedTodos() async {
+    return await isar.todos.where().filter().isFinishedEqualTo(false).findAll();
+  }
+  
 }

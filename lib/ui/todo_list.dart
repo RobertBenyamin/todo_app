@@ -39,12 +39,17 @@ class _TodoPageState extends State<TodoPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const Text(
-                'You have 9 tasks',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                ),
+              Consumer<TodoProvider>(
+                builder: (context, provider, _) {
+                  return Text(
+                    'You have ${provider.unfinishedTodos.isEmpty ? 'no' : '${provider.unfinishedTodos.length}'} '
+                    '${provider.unfinishedTodos.length <= 1 ? 'task' : 'tasks'}',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: 16),
               Row(
