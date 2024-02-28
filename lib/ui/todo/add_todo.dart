@@ -35,6 +35,14 @@ class _AddTodoPageState extends State<AddTodoPage> {
     _descriptionController = TextEditingController();
   }
 
+  bool _areFieldsNotEmpty() {
+    return _startDateController.text.isNotEmpty &&
+        _startTimeController.text.isNotEmpty &&
+        _endDateController.text.isNotEmpty &&
+        _endTimeController.text.isNotEmpty &&
+        _titleController.text.isNotEmpty;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -210,6 +218,14 @@ class _AddTodoPageState extends State<AddTodoPage> {
               const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
+                  if (!_areFieldsNotEmpty()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Please fill in all required fields.'),
+                      ),
+                    );
+                    return;
+                  }
                   DateTime startDate = DateTimeHelper.convertToDateTime(
                       _startDateController.text, _startTimeController.text);
                   DateTime endDate = DateTimeHelper.convertToDateTime(
@@ -230,9 +246,18 @@ class _AddTodoPageState extends State<AddTodoPage> {
                     ..description = description
                     ..isFinished = isFinished;
 
-                  context.read<TodoProvider>().addTodo(todo);
-
-                  Navigator.pop(context);
+                  context
+                      .read<TodoProvider>()
+                      .addTodo(todo)
+                      .then((value) => {Navigator.pop(context)})
+                      .catchError((error) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(error.message),
+                      ),
+                    );
+                    throw error;
+                  });
                 },
                 child: Container(
                   padding: const EdgeInsets.all(16),

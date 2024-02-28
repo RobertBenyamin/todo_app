@@ -244,9 +244,18 @@ class _EditTodoPageState extends State<EditTodoPage> {
                     ..description = description
                     ..isFinished = isFinished;
 
-                  context.read<TodoProvider>().updateTodo(widget.todo);
-
-                  Navigator.pop(context);
+                  context
+                      .read<TodoProvider>()
+                      .updateTodo(widget.todo)
+                      .then((value) => {Navigator.pop(context)})
+                      .catchError((error) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(error.message),
+                      ),
+                    );
+                    throw error;
+                  });
                 },
                 child: Container(
                   padding: const EdgeInsets.all(16),

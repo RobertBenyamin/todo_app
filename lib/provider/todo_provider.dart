@@ -35,6 +35,9 @@ class TodoProvider extends ChangeNotifier {
   }
 
   Future<void> addTodo(Todo todo) async {
+    if (!isStartDateBeforeEndDate(todo)) {
+      throw Exception('Start date must be before end date');
+    }
     await repository.addTodo(todo);
     fetchTodos();
   }
@@ -45,6 +48,9 @@ class TodoProvider extends ChangeNotifier {
   }
 
   Future<void> updateTodo(Todo todo) async {
+    if (!isStartDateBeforeEndDate(todo)) {
+      throw Exception('Start date must be before end date');
+    }
     await repository.updateTodo(todo);
     fetchTodos();
   }
@@ -52,5 +58,9 @@ class TodoProvider extends ChangeNotifier {
   Future<void> deleteTodo(Todo todo) async {
     await repository.deleteTodo(todo.id);
     fetchTodos();
+  }
+
+  bool isStartDateBeforeEndDate(Todo todo) {
+    return todo.startDate.isBefore(todo.endDate);
   }
 }
