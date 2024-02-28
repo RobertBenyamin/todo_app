@@ -48,6 +48,14 @@ class _EditTodoPageState extends State<EditTodoPage> {
     _isDaily = widget.todo.isDaily;
   }
 
+  bool _areFieldsNotEmpty() {
+    return _startDateController.text.isNotEmpty &&
+        _startTimeController.text.isNotEmpty &&
+        _endDateController.text.isNotEmpty &&
+        _endTimeController.text.isNotEmpty &&
+        _titleController.text.isNotEmpty;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,6 +94,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
                             textController: _startDateController,
                             isEnable: true,
                             title: "Start",
+                            isRequired: true,
                             content: DateTimeHelper.formatDate(
                                 widget.todo.startDate)),
                         const SizedBox(height: 10),
@@ -121,6 +130,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
                 textController: _titleController,
                 isEnable: true,
                 title: "Title",
+                isRequired: true,
               ),
               const SizedBox(height: 20),
               const Text(
@@ -225,6 +235,15 @@ class _EditTodoPageState extends State<EditTodoPage> {
               const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
+                  if (!_areFieldsNotEmpty()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Please fill in all required fields.'),
+                      ),
+                    );
+                    return;
+                  }
+
                   DateTime startDate = DateTimeHelper.convertToDateTime(
                       _startDateController.text, _startTimeController.text);
                   DateTime endDate = DateTimeHelper.convertToDateTime(

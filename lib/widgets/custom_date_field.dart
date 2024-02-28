@@ -6,13 +6,15 @@ class CustomDateField extends StatefulWidget {
   final bool isEnable;
   final String title;
   final String content;
+  final bool isRequired;
 
   const CustomDateField(
       {super.key,
       required this.textController,
       required this.isEnable,
       required this.title,
-      required this.content});
+      required this.content,
+      this.isRequired = false});
 
   @override
   State<CustomDateField> createState() => _CustomDateFieldState();
@@ -30,13 +32,26 @@ class _CustomDateFieldState extends State<CustomDateField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.title,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.deepPurple,
-          ),
+        Row(
+          children: [
+            Text(
+              widget.title,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurple,
+              ),
+            ),
+            if (widget.isRequired)
+              const Text(
+                ' *',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+          ],
         ),
         const SizedBox(height: 10),
         TextField(

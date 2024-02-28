@@ -81,7 +81,8 @@ class _AddTodoPageState extends State<AddTodoPage> {
                             textController: _startDateController,
                             isEnable: true,
                             title: "Start",
-                            content: ""),
+                            content: "",
+                            isRequired: true),
                         const SizedBox(height: 10),
                         CustomTimeField(
                           timeController: _startTimeController,
@@ -98,7 +99,8 @@ class _AddTodoPageState extends State<AddTodoPage> {
                             textController: _endDateController,
                             isEnable: true,
                             title: "Ends",
-                            content: ""),
+                            content: "",
+                            isRequired: true),
                         const SizedBox(height: 10),
                         CustomTimeField(
                           timeController: _endTimeController,
@@ -114,6 +116,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                 textController: _titleController,
                 isEnable: true,
                 title: "Title",
+                isRequired: true,
               ),
               const SizedBox(height: 20),
               const Text(
@@ -226,6 +229,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                     );
                     return;
                   }
+                  
                   DateTime startDate = DateTimeHelper.convertToDateTime(
                       _startDateController.text, _startTimeController.text);
                   DateTime endDate = DateTimeHelper.convertToDateTime(
