@@ -83,7 +83,37 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       alignment: Alignment.bottomRight,
                       child: GestureDetector(
                         onTap: () {
-                          _getImage(ImageSource.gallery, context);
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Choose Image Source'),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      ListTile(
+                                        leading: const Icon(Icons.camera_alt),
+                                        title: const Text('Camera'),
+                                        onTap: () {
+                                          _getImage(
+                                              ImageSource.camera, context);
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      ListTile(
+                                        leading:
+                                            const Icon(Icons.photo_library),
+                                        title: const Text('Gallery'),
+                                        onTap: () {
+                                          _getImage(
+                                              ImageSource.gallery, context);
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              });
                         },
                         child: Container(
                           width: 30,
