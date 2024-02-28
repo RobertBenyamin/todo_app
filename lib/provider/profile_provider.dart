@@ -20,20 +20,25 @@ class ProfileProvider extends ChangeNotifier {
   String _email = '';
   String get email => _email;
 
+  String _profilePicture = '';
+  String get profilePicture => _profilePicture;
+
   Future<void> fetchProfile() async {
     _name = await repository.getName();
     _major = await repository.getMajor();
     _dateOfBirth = await repository.getDateOfBirth();
     _email = await repository.getEmail();
+    _profilePicture = await repository.getProfilePicture();
     notifyListeners();
   }
 
-  Future<void> updateProfile(
-      String name, String major, String dateOfBirth, String email) async {
+  Future<void> updateProfile(String name, String major, String dateOfBirth,
+      String email, String profilePicture) async {
     await repository.setName(name);
     await repository.setMajor(major);
     await repository.setDateOfBirth(dateOfBirth);
     await repository.setEmail(email);
+    await repository.setProfilePicture(profilePicture);
     fetchProfile();
   }
 }

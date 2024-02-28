@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/ui/profile/edit_profile.dart';
@@ -17,6 +18,7 @@ class _ProfilePageState extends State<ProfilePage> {
   late TextEditingController _majorController;
   late TextEditingController _dateController;
   late TextEditingController _emailController;
+  String _profilePicture = '';
 
   @override
   void initState() {
@@ -41,6 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
         _majorController.text = provider.major;
         _dateController.text = provider.dateOfBirth;
         _emailController.text = provider.email;
+        _profilePicture = provider.profilePicture;
 
         return SingleChildScrollView(
           child: Padding(
@@ -49,11 +52,12 @@ class _ProfilePageState extends State<ProfilePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 8),
-                const Center(
+                Center(
                   child: CircleAvatar(
                     radius: 50,
-                    backgroundImage:
-                        AssetImage('assets/images/profile_picture.png'),
+                    backgroundImage: _profilePicture.isEmpty
+                        ? const AssetImage('assets/images/profile_picture.png')
+                        : Image.file(File(_profilePicture)).image,
                   ),
                 ),
                 const SizedBox(height: 20),

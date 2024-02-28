@@ -38,4 +38,12 @@ class ProfileRepository {
   Future<void> setEmail(String email) async {
     await sharedPreferences.setString('email', email);
   }
+
+  Future<String> getProfilePicture() async {
+    return sharedPreferences.getString('profilePicture') ?? "";
+  }
+
+  Future<void> setProfilePicture(String profilePicture) async {
+    await sharedPreferences.setString('profilePicture', profilePicture);
+  }
 }

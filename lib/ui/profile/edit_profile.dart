@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:todo_app/provider/profile_provider.dart';
 import 'package:todo_app/widgets/custom_date_field.dart';
 import 'package:todo_app/widgets/custom_text_field.dart';
@@ -16,6 +18,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   late TextEditingController _majorController;
   late TextEditingController _dateController;
   late TextEditingController _emailController;
+  String _profilePicture = '';
+  final picker = ImagePicker();
 
   @override
   void initState() {
@@ -24,6 +28,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _majorController = TextEditingController();
     _dateController = TextEditingController();
     _emailController = TextEditingController();
+  }
+
+  Future<void> _getImage(ImageSource source, BuildContext context) async {
+    final pickedFile = await picker.pickImage(source: source);
+    if (pickedFile != null) {
+      _profilePicture = pickedFile.path;
+    }
   }
 
   @override
@@ -53,6 +64,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         _majorController.text = provider.major;
         _dateController.text = provider.dateOfBirth;
         _emailController.text = provider.email;
+        _profilePicture = provider.profilePicture;
 
         return SingleChildScrollView(
           child: Padding(
@@ -64,12 +76,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 Center(
                   child: CircleAvatar(
                     radius: 50,
-                    backgroundImage:
-                        const AssetImage('assets/images/profile_picture.png'),
+                    backgroundImage: _profilePicture.isEmpty
+                        ? const AssetImage('assets/images/profile_picture.png')
+                        : Image.file(File(_profilePicture)).image,
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          _getImage(ImageSource.gallery, context);
+                        },
                         child: Container(
                           width: 30,
                           height: 30,
@@ -119,6 +134,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           _majorController.text,
                           _dateController.text,
                           _emailController.text,
+                          _profilePicture,
                         );
                     Navigator.pop(context);
                   },
