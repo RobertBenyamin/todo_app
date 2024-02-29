@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/provider/profile_provider.dart';
 import 'package:todo_app/ui/todo/add_todo.dart';
 import 'package:todo_app/ui/todo/edit_todo.dart';
 import 'package:todo_app/ui/todo/detail_todo.dart';
@@ -86,9 +87,9 @@ class _TodoPageState extends State<TodoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Welcome RISTEK',
-                  style: TextStyle(
+                Text(
+                  'Welcome ${Provider.of<ProfileProvider>(context).name}',
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
