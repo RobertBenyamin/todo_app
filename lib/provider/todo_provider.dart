@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:todo_app/data/model/todo.dart';
 import 'package:todo_app/data/repositories/todo_repository.dart';
@@ -14,6 +16,9 @@ class TodoProvider extends ChangeNotifier {
 
   List<Todo> _finishedTodos = [];
   List<Todo> get finishedTodos => _finishedTodos;
+  
+  List<Todo> _finishedDailyTodos = [];
+  List<Todo> get finishedDailyTodos => _finishedDailyTodos;
 
   List<Todo> _unfinishedTodos = [];
   List<Todo> get unfinishedTodos => _unfinishedTodos;
@@ -27,6 +32,7 @@ class TodoProvider extends ChangeNotifier {
   Future<void> fetchTodos() async {
     _todos = await repository.fetchTodos();
     _finishedTodos = await repository.fetchFinishedTodos();
+    _finishedDailyTodos = await repository.fetchFinishedDailyTodos();
     _unfinishedTodos = await repository.fetchUnfinishedTodos();
     _unfinishedPriorityTodos = await repository.fetchUnfinishedPriorityTodos();
     _unfinishedNonPriorityTodos =
@@ -57,6 +63,16 @@ class TodoProvider extends ChangeNotifier {
 
   Future<void> deleteTodo(Todo todo) async {
     await repository.deleteTodo(todo.id);
+    fetchTodos();
+  }
+
+  Future<void> updateDailyTodoStatus() async {
+    final dailyTodos = await repository.fetchFinishedDailyTodos();
+    for (var todo in dailyTodos) {
+      if (DateTime.now().isBefore(todo.endDate)) {
+        await repository.updateTodoStatus(todo.id, false);
+      }
+    }
     fetchTodos();
   }
 

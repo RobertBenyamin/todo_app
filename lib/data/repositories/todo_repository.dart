@@ -58,6 +58,16 @@ class TodoRepository {
         .findAll();
   }
 
+  Future<List<Todo>> fetchFinishedDailyTodos() async {
+    return await isar.todos
+        .where()
+        .filter()
+        .isFinishedEqualTo(true)
+        .isDailyEqualTo(true)
+        .sortByEndDate()
+        .findAll();
+  }
+
   Future<void> updateTodo(Todo newTodo) async {
     final oldTodo = await isar.todos.where().idEqualTo(newTodo.id).findFirst();
     if (oldTodo != null) {
