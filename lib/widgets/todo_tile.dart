@@ -36,7 +36,7 @@ class _TodoTileState extends State<TodoTile> {
             SlidableAction(
               onPressed: widget.editFunction,
               borderRadius: BorderRadius.circular(8),
-              backgroundColor: Colors.blue,
+              backgroundColor: const Color(0xFF5038BC),
               icon: Icons.edit,
             ),
           ],
@@ -47,7 +47,7 @@ class _TodoTileState extends State<TodoTile> {
             SlidableAction(
               onPressed: widget.deleteFunction,
               borderRadius: BorderRadius.circular(8),
-              backgroundColor: Colors.red,
+              backgroundColor: const Color(0xFFE92030),
               icon: Icons.delete,
             ),
           ],

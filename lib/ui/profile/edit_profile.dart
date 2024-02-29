@@ -43,7 +43,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       appBar: AppBar(
         title: const Text('Edit Profile'),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color(0xFF5038BC),
         foregroundColor: Colors.white,
         leading: GestureDetector(
           onTap: () {
@@ -55,7 +55,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               borderRadius: BorderRadius.circular(10),
             ),
             margin: const EdgeInsets.all(8),
-            child: const Icon(Icons.arrow_back, color: Colors.deepPurple),
+            child: const Icon(Icons.arrow_back, color: Color(0xFF5038BC)),
           ),
         ),
       ),
@@ -122,11 +122,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.circular(10),
                             border:
-                                Border.all(color: Colors.deepPurple, width: 2),
+                                Border.all(color: const Color(0xFF5038BC), width: 2),
                             color: Colors.white,
                           ),
                           child:
-                              const Icon(Icons.edit, color: Colors.deepPurple),
+                              const Icon(Icons.edit, color: Color(0xFF5038BC)),
                         ),
                       ),
                     ),
@@ -172,7 +172,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.deepPurple,
+                      color: const Color(0xFF5038BC),
                     ),
                     width: double.infinity,
                     child: const Center(

@@ -49,7 +49,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
       appBar: AppBar(
         title: const Text('Add Task'),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color(0xFF5038BC),
         foregroundColor: Colors.white,
         leading: GestureDetector(
           onTap: () {
@@ -61,7 +61,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
               borderRadius: BorderRadius.circular(10),
             ),
             margin: const EdgeInsets.all(8),
-            child: const Icon(Icons.arrow_back, color: Colors.deepPurple),
+            child: const Icon(Icons.arrow_back, color: Color(0xFF5038BC)),
           ),
         ),
       ),
@@ -124,7 +124,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
+                  color: Color(0xFF5038BC),
                 ),
               ),
               const SizedBox(height: 10),
@@ -141,10 +141,10 @@ class _AddTodoPageState extends State<AddTodoPage> {
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: _isPriority ? Colors.deepPurple : Colors.white,
+                          color: _isPriority ? const Color(0xFF5038BC) : Colors.white,
                           border: Border.all(
                             color: _isPriority
-                                ? Colors.deepPurple
+                                ? const Color(0xFF5038BC)
                                 : Colors.grey.shade300,
                           ),
                         ),
@@ -154,7 +154,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                             style: TextStyle(
                               color: _isPriority
                                   ? Colors.white
-                                  : Colors.deepPurple,
+                                  : const Color(0xFF5038BC),
                               fontSize: 16,
                             ),
                           ),
@@ -174,10 +174,10 @@ class _AddTodoPageState extends State<AddTodoPage> {
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: _isDaily ? Colors.deepPurple : Colors.white,
+                          color: _isDaily ? const Color(0xFF5038BC) : Colors.white,
                           border: Border.all(
                             color: _isDaily
-                                ? Colors.deepPurple
+                                ? const Color(0xFF5038BC)
                                 : Colors.grey.shade300,
                           ),
                         ),
@@ -186,7 +186,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                             'Daily Task',
                             style: TextStyle(
                               color:
-                                  _isDaily ? Colors.white : Colors.deepPurple,
+                                  _isDaily ? Colors.white : const Color(0xFF5038BC),
                               fontSize: 16,
                             ),
                           ),
@@ -202,7 +202,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
+                  color: Color(0xFF5038BC),
                 ),
               ),
               const SizedBox(height: 10),
@@ -267,7 +267,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.deepPurple,
+                    color: const Color(0xFF5038BC),
                   ),
                   width: double.infinity,
                   child: const Center(

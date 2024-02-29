@@ -200,7 +200,7 @@ class _TodoPageState extends State<TodoPage> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: "Add Task",
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color(0xFF5038BC),
         foregroundColor: Colors.white,
         onPressed: () {
           Navigator.push(

@@ -33,7 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color(0xFF5038BC),
         foregroundColor: Colors.white,
         title: const Text('My Profile'),
         centerTitle: true,
@@ -104,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: "Edit Profile",
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color(0xFF5038BC),
         foregroundColor: Colors.white,
         onPressed: () {
           Navigator.push(

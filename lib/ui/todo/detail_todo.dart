@@ -51,7 +51,7 @@ class _DetailTodoPageState extends State<DetailTodoPage> {
       appBar: AppBar(
         title: const Text('Detail Task'),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: const Color(0xFF5038BC),
         foregroundColor: Colors.white,
         leading: GestureDetector(
           onTap: () {
@@ -63,7 +63,7 @@ class _DetailTodoPageState extends State<DetailTodoPage> {
               borderRadius: BorderRadius.circular(10),
             ),
             margin: const EdgeInsets.all(8),
-            child: const Icon(Icons.arrow_back, color: Colors.deepPurple),
+            child: const Icon(Icons.arrow_back, color: Color(0xFF5038BC)),
           ),
         ),
       ),
@@ -79,7 +79,7 @@ class _DetailTodoPageState extends State<DetailTodoPage> {
                   style: const TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple,
+                    color: Color(0xFF5038BC),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -134,7 +134,7 @@ class _DetailTodoPageState extends State<DetailTodoPage> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple,
+                        color: Color(0xFF5038BC),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -147,11 +147,11 @@ class _DetailTodoPageState extends State<DetailTodoPage> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: _isPriority
-                                    ? Colors.deepPurple
+                                    ? const Color(0xFF5038BC)
                                     : Colors.white,
                                 border: Border.all(
                                   color: _isPriority
-                                      ? Colors.deepPurple
+                                      ? const Color(0xFF5038BC)
                                       : Colors.grey.shade300,
                                 ),
                               ),
@@ -161,7 +161,7 @@ class _DetailTodoPageState extends State<DetailTodoPage> {
                                   style: TextStyle(
                                     color: _isPriority
                                         ? Colors.white
-                                        : Colors.deepPurple,
+                                        : const Color(0xFF5038BC),
                                     fontSize: 16,
                                   ),
                                 ),
@@ -176,10 +176,10 @@ class _DetailTodoPageState extends State<DetailTodoPage> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color:
-                                    _isDaily ? Colors.deepPurple : Colors.white,
+                                    _isDaily ? const Color(0xFF5038BC) : Colors.white,
                                 border: Border.all(
                                   color: _isDaily
-                                      ? Colors.deepPurple
+                                      ? const Color(0xFF5038BC)
                                       : Colors.grey.shade300,
                                 ),
                               ),
@@ -189,7 +189,7 @@ class _DetailTodoPageState extends State<DetailTodoPage> {
                                   style: TextStyle(
                                     color: _isDaily
                                         ? Colors.white
-                                        : Colors.deepPurple,
+                                        : const Color(0xFF5038BC),
                                     fontSize: 16,
                                   ),
                                 ),
@@ -206,7 +206,7 @@ class _DetailTodoPageState extends State<DetailTodoPage> {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
+                  color: Color(0xFF5038BC),
                 ),
               ),
               const SizedBox(height: 10),
