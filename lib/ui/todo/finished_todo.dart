@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/ui/todo/detail_todo.dart';
-import 'package:todo_app/ui/todo/edit_todo.dart';
 import 'package:todo_app/data/model/todo.dart';
 import 'package:todo_app/widgets/todo_tile.dart';
+import 'package:todo_app/ui/todo/edit_todo.dart';
+import 'package:todo_app/ui/todo/detail_todo.dart';
 import 'package:todo_app/provider/todo_provider.dart';
 import 'package:todo_app/utils/date_time_helper.dart';
+import 'package:todo_app/provider/profile_provider.dart';
 
 class FinishedTodoPage extends StatefulWidget {
   const FinishedTodoPage({Key? key}) : super(key: key);
@@ -85,9 +86,9 @@ class _FinishedTodoPageState extends State<FinishedTodoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Welcome RISTEK',
-                  style: TextStyle(
+                Text(
+                  'Welcome ${Provider.of<ProfileProvider>(context).name}',
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
