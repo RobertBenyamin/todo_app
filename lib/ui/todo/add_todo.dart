@@ -47,7 +47,12 @@ class _AddTodoPageState extends State<AddTodoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Task'),
+        title: const Text(
+          'Add Task',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: const Color(0xFF5038BC),
         foregroundColor: Colors.white,
@@ -141,7 +146,9 @@ class _AddTodoPageState extends State<AddTodoPage> {
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: _isPriority ? const Color(0xFF5038BC) : Colors.white,
+                          color: _isPriority
+                              ? const Color(0xFF5038BC)
+                              : Colors.white,
                           border: Border.all(
                             color: _isPriority
                                 ? const Color(0xFF5038BC)
@@ -174,7 +181,8 @@ class _AddTodoPageState extends State<AddTodoPage> {
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: _isDaily ? const Color(0xFF5038BC) : Colors.white,
+                          color:
+                              _isDaily ? const Color(0xFF5038BC) : Colors.white,
                           border: Border.all(
                             color: _isDaily
                                 ? const Color(0xFF5038BC)
@@ -185,8 +193,9 @@ class _AddTodoPageState extends State<AddTodoPage> {
                           child: Text(
                             'Daily Task',
                             style: TextStyle(
-                              color:
-                                  _isDaily ? Colors.white : const Color(0xFF5038BC),
+                              color: _isDaily
+                                  ? Colors.white
+                                  : const Color(0xFF5038BC),
                               fontSize: 16,
                             ),
                           ),
@@ -229,7 +238,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                     );
                     return;
                   }
-                  
+
                   DateTime startDate = DateTimeHelper.convertToDateTime(
                       _startDateController.text, _startTimeController.text);
                   DateTime endDate = DateTimeHelper.convertToDateTime(

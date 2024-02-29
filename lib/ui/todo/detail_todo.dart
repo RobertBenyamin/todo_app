@@ -49,7 +49,12 @@ class _DetailTodoPageState extends State<DetailTodoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detail Task'),
+        title: const Text(
+          'Detail Task',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: const Color(0xFF5038BC),
         foregroundColor: Colors.white,
@@ -175,8 +180,9 @@ class _DetailTodoPageState extends State<DetailTodoPage> {
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color:
-                                    _isDaily ? const Color(0xFF5038BC) : Colors.white,
+                                color: _isDaily
+                                    ? const Color(0xFF5038BC)
+                                    : Colors.white,
                                 border: Border.all(
                                   color: _isDaily
                                       ? const Color(0xFF5038BC)

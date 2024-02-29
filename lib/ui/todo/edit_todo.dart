@@ -60,7 +60,12 @@ class _EditTodoPageState extends State<EditTodoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Task'),
+        title: const Text(
+          'Edit Task',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: const Color(0xFF5038BC),
         foregroundColor: Colors.white,
@@ -155,7 +160,9 @@ class _EditTodoPageState extends State<EditTodoPage> {
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: _isPriority ? const Color(0xFF5038BC) : Colors.white,
+                          color: _isPriority
+                              ? const Color(0xFF5038BC)
+                              : Colors.white,
                           border: Border.all(
                             color: _isPriority
                                 ? const Color(0xFF5038BC)
@@ -188,7 +195,8 @@ class _EditTodoPageState extends State<EditTodoPage> {
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: _isDaily ? const Color(0xFF5038BC) : Colors.white,
+                          color:
+                              _isDaily ? const Color(0xFF5038BC) : Colors.white,
                           border: Border.all(
                             color: _isDaily
                                 ? const Color(0xFF5038BC)
@@ -199,8 +207,9 @@ class _EditTodoPageState extends State<EditTodoPage> {
                           child: Text(
                             'Daily Task',
                             style: TextStyle(
-                              color:
-                                  _isDaily ? Colors.white : const Color(0xFF5038BC),
+                              color: _isDaily
+                                  ? Colors.white
+                                  : const Color(0xFF5038BC),
                               fontSize: 16,
                             ),
                           ),

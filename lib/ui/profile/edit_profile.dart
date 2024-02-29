@@ -41,7 +41,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Profile'),
+        title: const Text(
+          'Edit Profile',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: const Color(0xFF5038BC),
         foregroundColor: Colors.white,
@@ -121,8 +126,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           decoration: BoxDecoration(
                             shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.circular(10),
-                            border:
-                                Border.all(color: const Color(0xFF5038BC), width: 2),
+                            border: Border.all(
+                                color: const Color(0xFF5038BC), width: 2),
                             color: Colors.white,
                           ),
                           child:
