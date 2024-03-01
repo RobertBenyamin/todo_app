@@ -218,7 +218,7 @@ class _DetailTodoPageState extends State<DetailTodoPage> {
               const SizedBox(height: 10),
               TextField(
                 controller: _descriptionController,
-                maxLines: 7,
+                maxLines: null,
                 enabled: false,
                 style: const TextStyle(
                   color: Colors.black,

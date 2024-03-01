@@ -231,7 +231,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
               const SizedBox(height: 10),
               TextField(
                 controller: _descriptionController,
-                maxLines: 7,
+                maxLines: null,
                 style: const TextStyle(
                   color: Colors.black,
                 ),
