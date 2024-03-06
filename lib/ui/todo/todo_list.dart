@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 import 'package:todo_app/provider/profile_provider.dart';
 import 'package:todo_app/ui/todo/add_todo.dart';
 import 'package:todo_app/ui/todo/edit_todo.dart';
@@ -61,10 +62,17 @@ class _TodoPageState extends State<TodoPage> {
 
   void deleteFunction(BuildContext context, Todo todo) {
     context.read<TodoProvider>().deleteTodo(todo);
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Task deleted'),
-      ),
+    toastification.show(
+      context: context,
+      type: ToastificationType.success,
+      style: ToastificationStyle.flatColored,
+      title: const Text('Task deleted'),
+      alignment: Alignment.bottomCenter,
+      closeButtonShowType: CloseButtonShowType.none,
+      showProgressBar: false,
+      autoCloseDuration: const Duration(seconds: 3),
+      animationDuration: const Duration(milliseconds: 300),
+      borderRadius: BorderRadius.circular(12.0),
     );
   }
 
