@@ -60,7 +60,10 @@ class _TodoTileState extends State<TodoTile> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: CheckboxListTile(
-              title: Text(widget.taskName),
+              title: Text(
+                widget.taskName,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               subtitle: Text(widget.deadline),
               value: widget.isTaskCompleted,
               tileColor: widget.isTaskCompleted ? Colors.grey.shade300 : null,
