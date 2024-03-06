@@ -199,31 +199,37 @@ class _TodoPageState extends State<TodoPage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: "Add Task",
-        backgroundColor: const Color(0xFF5038BC),
-        foregroundColor: Colors.white,
-        onPressed: () {
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              transitionDuration: const Duration(milliseconds: 400),
-              pageBuilder: (context, animation, secondaryAnimation) {
-                return SlideTransition(
-                  position: Tween<Offset>(
-                    begin: const Offset(0, 1),
-                    end: Offset.zero,
-                  ).animate(animation),
-                  child: ChangeNotifierProvider.value(
-                    value: context.read<TodoProvider>(),
-                    child: const AddTodoPage(),
-                  ),
-                );
-              },
-            ),
-          );
-        },
-        child: const Icon(Icons.add),
+      floatingActionButton: SizedBox(
+        width: 70,
+        height: 70,
+        child: FittedBox(
+          child: FloatingActionButton(
+            tooltip: "Add Task",
+            backgroundColor: const Color(0xFF5038BC),
+            foregroundColor: Colors.white,
+            onPressed: () {
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: const Duration(milliseconds: 400),
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(0, 1),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: ChangeNotifierProvider.value(
+                        value: context.read<TodoProvider>(),
+                        child: const AddTodoPage(),
+                      ),
+                    );
+                  },
+                ),
+              );
+            },
+            child: const Icon(Icons.add),
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
