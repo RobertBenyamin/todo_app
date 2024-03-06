@@ -18,6 +18,15 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
+  late TextEditingController _searchController;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController = TextEditingController();
+    context.read<TodoProvider>().filterTasks("");
+  }
+
   void onLongPress(BuildContext context, Todo todo) {
     Navigator.push(
       context,
@@ -76,6 +85,25 @@ class _TodoPageState extends State<TodoPage> {
     );
   }
 
+  void filterTask(BuildContext context, String searchText) {
+    context.read<TodoProvider>().filterTasks(searchText);
+    if (context.read<TodoProvider>().unfinishedPriorityTodos.isEmpty &&
+        context.read<TodoProvider>().unfinishedNonPriorityTodos.isEmpty) {
+      toastification.show(
+        context: context,
+        type: ToastificationType.error,
+        style: ToastificationStyle.flatColored,
+        title: const Text('No task found'),
+        alignment: Alignment.bottomCenter,
+        closeButtonShowType: CloseButtonShowType.none,
+        showProgressBar: false,
+        autoCloseDuration: const Duration(seconds: 3),
+        animationDuration: const Duration(milliseconds: 300),
+        borderRadius: BorderRadius.circular(12.0),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,6 +137,20 @@ class _TodoPageState extends State<TodoPage> {
                     fontSize: 16,
                     color: Colors.grey,
                   ),
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    hintText: 'Search Task',
+                    prefixIcon: const Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onChanged: (value) {
+                    filterTask(context, _searchController.text);
+                  },
                 ),
                 const SizedBox(height: 16),
                 if (provider.unfinishedPriorityTodos.isNotEmpty)
@@ -241,5 +283,11 @@ class _TodoPageState extends State<TodoPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 }

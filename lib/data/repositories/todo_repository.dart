@@ -39,12 +39,34 @@ class TodoRepository {
         .findAll();
   }
 
+  Future<List<Todo>> filterUnfinishedPriorityTodos(String searchText) async {
+    return await isar.todos
+        .where()
+        .filter()
+        .isFinishedEqualTo(false)
+        .isPriorityEqualTo(true)
+        .titleContains(searchText)
+        .sortByEndDate()
+        .findAll();
+  }
+
   Future<List<Todo>> fetchUnfinishedNonPriorityTodos() async {
     return await isar.todos
         .where()
         .filter()
         .isFinishedEqualTo(false)
         .isPriorityEqualTo(false)
+        .sortByEndDate()
+        .findAll();
+  }
+
+  Future<List<Todo>> filterUnfinishedNonPriorityTodos(String searchText) async {
+    return await isar.todos
+        .where()
+        .filter()
+        .isFinishedEqualTo(false)
+        .isPriorityEqualTo(false)
+        .titleContains(searchText)
         .sortByEndDate()
         .findAll();
   }

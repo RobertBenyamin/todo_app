@@ -16,7 +16,7 @@ class TodoProvider extends ChangeNotifier {
 
   List<Todo> _finishedTodos = [];
   List<Todo> get finishedTodos => _finishedTodos;
-  
+
   List<Todo> _finishedDailyTodos = [];
   List<Todo> get finishedDailyTodos => _finishedDailyTodos;
 
@@ -37,6 +37,14 @@ class TodoProvider extends ChangeNotifier {
     _unfinishedPriorityTodos = await repository.fetchUnfinishedPriorityTodos();
     _unfinishedNonPriorityTodos =
         await repository.fetchUnfinishedNonPriorityTodos();
+    notifyListeners();
+  }
+
+  void filterTasks(String searchText) async {
+    _unfinishedPriorityTodos =
+        await repository.filterUnfinishedPriorityTodos(searchText);
+    _unfinishedNonPriorityTodos =
+        await repository.filterUnfinishedNonPriorityTodos(searchText);
     notifyListeners();
   }
 
