@@ -151,22 +151,16 @@ class _DetailTodoPageState extends State<DetailTodoPage> {
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: _isPriority
-                                    ? const Color(0xFF5038BC)
-                                    : Colors.white,
+                                color: const Color(0xFF5038BC).withOpacity(0.1),
                                 border: Border.all(
-                                  color: _isPriority
-                                      ? const Color(0xFF5038BC)
-                                      : Colors.grey.shade300,
+                                  color: const Color(0xFF5038BC),
                                 ),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   'Priority Task',
                                   style: TextStyle(
-                                    color: _isPriority
-                                        ? Colors.white
-                                        : const Color(0xFF5038BC),
+                                    color: Color(0xFF5038BC),
                                     fontSize: 16,
                                   ),
                                 ),
@@ -180,22 +174,16 @@ class _DetailTodoPageState extends State<DetailTodoPage> {
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: _isDaily
-                                    ? const Color(0xFF5038BC)
-                                    : Colors.white,
+                                color: const Color(0xFF5038BC).withOpacity(0.1),
                                 border: Border.all(
-                                  color: _isDaily
-                                      ? const Color(0xFF5038BC)
-                                      : Colors.grey.shade300,
+                                  color: const Color(0xFF5038BC),
                                 ),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   'Daily Task',
                                   style: TextStyle(
-                                    color: _isDaily
-                                        ? Colors.white
-                                        : const Color(0xFF5038BC),
+                                    color: Color(0xFF5038BC),
                                     fontSize: 16,
                                   ),
                                 ),
