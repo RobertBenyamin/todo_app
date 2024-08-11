@@ -33,8 +33,8 @@ jobs:
           
           - name: Install dependencies
             run: |
-                flutter pub cache clean
-                flutter channel stable
+                flutter pub upgrade win32
+                flutter clean
                 flutter pub get              
 
           - name: Decode Keystore
