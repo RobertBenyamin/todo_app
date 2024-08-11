@@ -32,7 +32,10 @@ jobs:
                 channel: 'stable'
           
           - name: Install dependencies
-            run: flutter pub get
+            run: |
+                flutter pub cache clean
+                flutter channel stable
+                flutter pub get              
 
           - name: Decode Keystore
             env:
